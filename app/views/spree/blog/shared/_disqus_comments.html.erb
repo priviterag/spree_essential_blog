@@ -7,6 +7,7 @@
         var disqus_shortname = <%== disqus_short_name.inspect %>;
         var disqus_identifier = <%== @post.path.inspect %>;
         var disqus_url = <%== request.url.inspect %>;
+        var disqus_developer = <%= ENV['RAILS_ENV']=='development' ? 1 : 0%>; 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
