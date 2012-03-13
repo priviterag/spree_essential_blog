@@ -14,6 +14,7 @@ module SpreeEssentials
         migration_template "create_post_categories.rb",       "db/migrate/create_post_categories.rb"
         migration_template "create_post_categories_posts.rb", "db/migrate/create_post_categories_posts.rb"
         migration_template "add_spree_namespace_to_blog.rb",  "db/migrate/add_spree_namespace_to_blog.rb"
+        migration_template "add_visible_to_post_categories.rb",  "db/migrate/add_visible_to_post_categories.rb"
       end
 
     end
