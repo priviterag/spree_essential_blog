@@ -26,6 +26,10 @@
   <%= form.check_box :live  %> <%= form.label :live, t("post.live") %><br />
 <% end %>
 
+<%= form.field_container :sticky do %>
+  <%= form.check_box :sticky  %> <%= form.label :sticky, "Sticky" %><br />
+<% end %>
+
 <% content_for :head do %>
   <%= stylesheet_link_tag "markitup.css" %>
   <%= javascript_include_tag 'date.js', 'jquery.autodate.js', 'jquery.markitup.js', 'markdown.set.js' %>

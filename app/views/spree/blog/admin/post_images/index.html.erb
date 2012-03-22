@@ -2,13 +2,15 @@
 
 <table class="index">
 	<tr>
-	  <th><%= t("thumbnail") %></th>
+    <th><%= t("thumbnail") %></th>
+    <th>Context</th>
 	  <th><%= t("action") %></th>
 	</tr>
  
   <% @post.images.each do |image| %>
     <tr id="<%= dom_id(image) %>">
       <td><%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:large)) %></td>
+      <td><%= image.context %></td>
       <td class="actions">
         <%= link_to_with_icon('edit', t("edit"), edit_admin_post_image_url(@post, image)) %>
         &nbsp;

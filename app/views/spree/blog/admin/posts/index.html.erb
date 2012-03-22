@@ -18,7 +18,8 @@
 	<tr>
     	<th><%= sort_link @search, :title, t("post.title") %></th>
     	<th><%= sort_link @search, :posted_at, t("post.posted_at") %></th>
-    	<th><%= sort_link @search, :live, t("post.live") %></th>
+      <th><%= sort_link @search, :live, t("post.live") %></th>
+      <th><%= sort_link @search, :sticky, "Sticky" %></th>
     	<th><%= t("action") %></th>
 	</tr>
   </thead>
@@ -28,6 +29,7 @@
       <td><%=link_to post.title, object_url(post) %></td>
       <td><%=link_to post.posted_at.strftime('%x %X'), object_url(post) %></td>
       <td><%= t(post.live ? 'yes' : 'no') %></td>
+      <td><%= t(post.sticky ? 'yes' : 'no') %></td>
       <td>
       	<%= link_to_edit post %> &nbsp;
       	<%= link_to_delete post %>

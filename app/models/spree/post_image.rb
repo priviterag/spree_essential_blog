@@ -5,7 +5,7 @@ class Spree::PostImage < Spree::Asset
   has_attached_file :attachment,
     :styles => Proc.new{ |clip| clip.instance.attachment_sizes },
     :default_style => :medium
-   
+
   def image_content?
     attachment_content_type.match(/\/(jpeg|png|gif|tiff|x-photoshop)/)
   end

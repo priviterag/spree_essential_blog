@@ -22,6 +22,8 @@ class Spree::Post < ActiveRecord::Base
 
   scope :live, where(:live => true ).order('posted_at DESC')
 
+  scope :sticky, lambda{ |sticky=true| sticky ? where("sticky = ?", sticky) : where("sticky = ? OR sticky IS NULL", sticky)}
+
  	before_validation :create_path, :if => proc{ |record| record.title_changed? }
   
   
@@ -41,9 +43,17 @@ class Spree::Post < ActiveRecord::Base
 	  render(body.gsub("<!-- more -->", ""))
   end
 		
-	def preview_image
-    images.first if has_images?	  
-	end
+  def preview_image
+    images.first if has_images?   
+  end
+
+  def gallery_image
+    images.where(:context => "gallery").first if !images.where(:context => "gallery").empty?
+  end
+
+  def post_images
+    images.where(:context => nil) if !images.where(:context => nil).empty?
+  end
 
   def has_images?
     images && !images.empty?
