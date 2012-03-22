@@ -46,19 +46,10 @@ class Spree::Post < ActiveRecord::Base
   def preview_image
     images.first if has_images?   
   end
-
-  def gallery_image
-    images.where(:context => "gallery").first if !images.where(:context => "gallery").empty?
-  end
-
-  def post_images
-    images.where(:context => nil) if !images.where(:context => nil).empty?
-  end
-
+  
   def has_images?
     images && !images.empty?
   end
-  
 
   def live?
     live && live == true

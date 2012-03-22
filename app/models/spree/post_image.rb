@@ -6,6 +6,8 @@ class Spree::PostImage < Spree::Asset
     :styles => Proc.new{ |clip| clip.instance.attachment_sizes },
     :default_style => :medium
 
+  scope :context, lambda { |context = nil| context ? where("context = ?", context) : where("context IS NULL") }
+
   def image_content?
     attachment_content_type.match(/\/(jpeg|png|gif|tiff|x-photoshop)/)
   end
