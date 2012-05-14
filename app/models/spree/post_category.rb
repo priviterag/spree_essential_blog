@@ -1,9 +1,11 @@
 class Spree::PostCategory < ActiveRecord::Base
   
+  attr_accessible :name, :permalink
+  
   validates :name, :presence => true
   validates :permalink,  :presence => true, :uniqueness => true, :if => proc{ |record| !record.name.blank? }
   
-  has_and_belongs_to_many :posts, :join_table => 'spree_post_categories_posts'
+  has_and_belongs_to_many :posts, :join_table => 'spree_post_categories_posts', :uniq => true
   
   before_validation :create_permalink
   

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Spree::PostCategoryTest < Test::Unit::TestCase
+class Spree::PostCategoryTest < ActiveSupport::TestCase
 
   def setup
     Spree::PostCategory.destroy_all
@@ -8,9 +8,10 @@ class Spree::PostCategoryTest < Test::Unit::TestCase
   
   subject { Spree::PostCategory.new }
   
+  should have_and_belong_to_many(:posts)
   should validate_presence_of(:name)
   
-  should "automatically set path" do
+  should "automatically set permalink" do
     @category = Factory.create(:spree_post_category, :name => "This should parameterize")
     assert_equal "this-should-parameterize", @category.permalink
   end

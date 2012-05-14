@@ -1,18 +1,21 @@
 class Spree::Post < ActiveRecord::Base
   
+  attr_accessible :blog_id, :title, :teaser, :body, :posted_at, :author, :live, :tag_list, :post_category_ids
+  
   acts_as_taggable
 
   # for flash messages    
   alias_attribute :name, :title
-    
-  has_and_belongs_to_many :post_categories, :join_table => 'spree_post_categories_posts'
+  
+  has_and_belongs_to_many :post_categories, :join_table => "spree_post_categories_posts", :class_name => "Spree::PostCategory"
   alias_attribute :categories, :post_categories
   
+  belongs_to :blog, :class_name => "Spree::Blog"
   has_many :post_products, :dependent => :destroy
   has_many :products, :through => :post_products
-  has_many :images, :as => :viewable, :class_name => 'Spree::PostImage', :order => :position, :dependent => :destroy
+  has_many :images, :as => :viewable, :class_name => "Spree::PostImage", :order => :position, :dependent => :destroy
   
-  validates :title, :presence => true
+  validates :blog_id, :title, :presence => true
   validates :path,  :presence => true, :uniqueness => true, :if => proc{ |record| !record.title.blank? }
   validates :body,  :presence => true
   validates :posted_at, :datetime => true
@@ -20,7 +23,10 @@ class Spree::Post < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 10
 
-  scope :live, where(:live => true ).order('posted_at DESC')
+  scope :ordered, order("posted_at DESC")
+  scope :future,  where("posted_at > ?", Time.now).order("posted_at ASC")
+  scope :past,    where("posted_at <= ?", Time.now).ordered
+  scope :live,    where(:live => true )
 
   scope :sticky, lambda{ |sticky=true| sticky ? where("sticky = ?", sticky) : where("sticky = ? OR sticky IS NULL", sticky)}
 
@@ -68,12 +74,11 @@ class Spree::Post < ActiveRecord::Base
     end
 		
     def create_path
-  		#downcase.gsub(/\s/, '-').gsub(/[^a-z0-9\-\_]/, '').gsub(/[\-]+/, '-')
   		count = 2
   		new_path = title.to_s.parameterize
   		exists = path_exists?(new_path)
   		while exists do
-  			dupe_path = "#{new_path}_#{count}"
+  			dupe_path = "#{new_path}-#{count}"
   			exists = path_exists?(dupe_path)
   			count += 1
   		end

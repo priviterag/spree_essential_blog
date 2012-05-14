@@ -1,7 +1,7 @@
 # Spree Essential Blog [![Build Status](https://secure.travis-ci.org/citrus/spree_essential_blog.png)](http://travis-ci.org/citrus/spree_essential_blog)
 
 
-A complete blogging solution for [Spree Commerce](http://spreecommerce.com) with archives, categories, tags, disqus comments and related products. 
+A complete blogging solution for [Spree Commerce](http://spreecommerce.com) with multiple-blogs, archives, categories, tags, disqus comments and related products.
 
 This extension relies on [spree_essentials](https://github.com/citrus/spree_essentials) for it's editor, uploads admin and tab in the admin.
 
@@ -18,8 +18,11 @@ Otherwise, follow these steps to get up and running with spree_essential_blog:
 First, add spree_essential_blog to your Gemfile... it hasn't been released to Rubygems yet so we'll grab it from git.
 
 ```ruby
+# Spree 1.1.x
+gem 'spree_essential_blog', :git => 'git://github.com/citrus/spree_essential_blog.git', :branch => 'master'
+
 # Spree 1.0.x
-gem 'spree_essential_blog', :git => 'git://github.com/citrus/spree_essential_blog.git'
+gem 'spree_essential_blog', :git => 'git://github.com/citrus/spree_essential_blog.git', :branch => '1.0.x'
 
 # Spree 0.70.x
 gem 'spree_essential_blog', '~> 0.1.0'
@@ -154,9 +157,13 @@ Contributors
 ------------------------------------------------------------------------------
 
 * Spencer Steffen ([@citrus](https://github.com/citrus))
+* Milo Delgado ([@moladukes](https://github.com/moladukes))
+* Pierre Basil ([@kpitn](https://github.com/kpitn))
 * Denis Tierno ([@detierno](https://github.com/detierno))
 * David Verhasselt ([@dv](https://github.com/dv))
 * Kyle West ([@kylewest](https://github.com/kylewest))
+* Phil Pirozhkov ([pirj](https://github.com/pirj))
+
 
 If you'd like to help out feel free to fork and send me pull requests!
 
